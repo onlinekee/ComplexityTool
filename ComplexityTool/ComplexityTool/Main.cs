@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ComplexityTool.Size;
 
 namespace ComplexityTool
 {
@@ -15,6 +16,12 @@ namespace ComplexityTool
         public Main()
         {
             InitializeComponent();
+        }
+
+        SizeComplexity sComplex = new SizeComplexity();
+        private void button1_Click(object sender, EventArgs e)
+        {
+            txtSizeScore.Text =  sComplex.operatorsScore(txtCode.Text.ToString()).ToString();
         }
     }
 }
