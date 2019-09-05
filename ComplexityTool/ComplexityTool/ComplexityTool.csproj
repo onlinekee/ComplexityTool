@@ -46,6 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ctc\CTCClass.cs" />
+    <Compile Include="ExtendedProperties.cs" />
+    <Compile Include="GlobalData.cs" />
+    <Compile Include="Inheritance\InheritanceComplexity.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -54,7 +58,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Recursion\CodeCorrector.cs" />
+    <Compile Include="Recursion\Link.cs" />
+    <Compile Include="Recursion\Reclaimer.cs" />
+    <Compile Include="Recursion\RecursionComplexity.cs" />
+    <Compile Include="Size\KeyWords.cs" />
     <Compile Include="Size\SizeComplexity.cs" />
+    <Compile Include="TotalComplexity\TotalComplexity.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -80,5 +90,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
