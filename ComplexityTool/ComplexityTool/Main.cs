@@ -48,7 +48,7 @@ namespace ComplexityTool
             GlobalData.ExtendCount = 0;
 
             String code = txtCode.Text.ToString();
-            //String line;
+          
             int scoreCs;
             int keyCs;
             int scoreInherit;
