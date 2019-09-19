@@ -21,6 +21,8 @@ namespace ComplexityTool
 {
     public partial class Main : Form
     {
+        public static List<string> allTokens = new List<string>();
+
         public Main()
         {
             InitializeComponent();
@@ -48,7 +50,10 @@ namespace ComplexityTool
             GlobalData.ExtendCount = 0;
 
             String code = txtCode.Text.ToString();
-          
+
+           // string[] notConsidered = new string[] { "public", "static", "else", "try", "return" };
+           // string[] tokens;
+
             int scoreCs;
             int keyCs;
             int scoreInherit;
@@ -65,6 +70,7 @@ namespace ComplexityTool
             int totalExtendCount = 0;
             Boolean isRec;
             int i = 0;
+            string idenTokens = "";
 
 
             //Remove all comments in the full code
@@ -74,14 +80,40 @@ namespace ComplexityTool
             //separate code into lines
             string[] lines = code.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
+
+
             isRec = recursion.isRecursive(code);
 
             //retrieve each line
             foreach (String line in lines)
             {
+                if (String.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+               
+
+                //string allTokens = "";
+
+                //string tLine = line.Trim();
+                //tLine = Regex.Replace(code, "\"[^\"]*\"", string.Empty);
+
+                //if (line.Contains("import") || line.Contains("package") || line.Contains("class"))
+                //{
+                //    tokens = null;
+                //}
+                //else
+                //{
+                //  tokens = tLine.Split(new[] { " ", ".", ",", "(", ")" }, StringSplitOptions.None);
+                //}
+                
+
+                
+
+
                 //call method to calculate score
                 scoreCs = sComplex.operatorsScore(line);
-                keyCs = keyComplex.KeyWordsScore(line);
+                //keyCs = keyComplex.KeyWordsScore(line);
                 scoreCTC = ctcComplex.ComputeScore(line);
                 scoreInherit = inComplex.inheritanceScore(line);
 
@@ -92,8 +124,37 @@ namespace ComplexityTool
                 dataGridView.Rows.Add();
                 dataGridView.Rows[i].Cells[0].Value = i + 1;
                 dataGridView.Rows[i].Cells[1].Value = line;
-                dataGridView.Rows[i].Cells[2].Value = scoreCs + keyCs;
+                dataGridView.Rows[i].Cells[2].Value = scoreCs;
                 dataGridView.Rows[i].Cells[3].Value = scoreCTC;
+
+                //if(tokens != null) { 
+                //    foreach (String t in tokens)
+                //    {
+                //        string tToken = t.Trim();
+                //        tToken = tToken.Trim(new[] {'{', '}', ';' } );
+                //        if(String.IsNullOrWhiteSpace(tToken))
+                //        {
+                //            continue;
+                //        }else if (notConsidered.Any(tToken.Contains))
+                //        {
+                //            continue;
+                //        }
+                    
+                //        allTokens = allTokens + tToken + " , ";
+                //    }
+                //}
+
+                if(allTokens != null)
+                {
+                    foreach(string t in allTokens)
+                    {
+                        idenTokens = idenTokens + t + " , ";
+                    }
+                }
+
+                dataGridView.Rows[i].Cells[9].Value = idenTokens.ToString();
+                idenTokens = "";
+                allTokens.Clear();
 
 
                 if (GlobalData.isExtendedRow)
@@ -122,7 +183,7 @@ namespace ComplexityTool
        
 
                 //calculate total score
-                totalCs = totalCs + scoreCs + keyCs;
+                totalCs = totalCs + scoreCs;
                 totalCTC = totalCTC + scoreCTC;
 
                 weight = tComplex.getTotalWeight(scoreCTC, scoreCnc, int.Parse(dataGridView.Rows[i].Cells[5].Value.ToString()));
@@ -151,7 +212,6 @@ namespace ComplexityTool
             }
 
  
-
             //display total score
             txtSizeScore.Text = totalCs.ToString();
             txtTotalCtc.Text = totalCTC.ToString();

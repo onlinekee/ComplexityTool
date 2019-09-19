@@ -44,6 +44,7 @@
             this.TW = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cps = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tokens = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtTotalCtc = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtCp = new System.Windows.Forms.TextBox();
@@ -114,8 +115,8 @@
             this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.LineNo,
@@ -126,7 +127,8 @@
             this.Ci,
             this.TW,
             this.Cps,
-            this.Cr});
+            this.Cr,
+            this.Tokens});
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -142,14 +144,14 @@
             // 
             // LineNo
             // 
-            this.LineNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.LineNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.LineNo.HeaderText = "Line No";
             this.LineNo.Name = "LineNo";
+            this.LineNo.Width = 64;
             // 
             // Statement
             // 
             this.Statement.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Statement.FillWeight = 500F;
             this.Statement.HeaderText = "Program Statement";
             this.Statement.Name = "Statement";
             this.Statement.Width = 112;
@@ -158,36 +160,51 @@
             // 
             this.Cs.HeaderText = "Cs";
             this.Cs.Name = "Cs";
+            this.Cs.Width = 44;
             // 
             // Ctc
             // 
             this.Ctc.HeaderText = "Ctc";
             this.Ctc.Name = "Ctc";
+            this.Ctc.Width = 48;
             // 
             // Cnc
             // 
             this.Cnc.HeaderText = "Cnc";
             this.Cnc.Name = "Cnc";
+            this.Cnc.Width = 51;
             // 
             // Ci
             // 
             this.Ci.HeaderText = "Ci";
             this.Ci.Name = "Ci";
+            this.Ci.Width = 41;
             // 
             // TW
             // 
             this.TW.HeaderText = "TW";
             this.TW.Name = "TW";
+            this.TW.Width = 50;
             // 
             // Cps
             // 
             this.Cps.HeaderText = "Cps";
             this.Cps.Name = "Cps";
+            this.Cps.Width = 50;
             // 
             // Cr
             // 
             this.Cr.HeaderText = "Cr";
             this.Cr.Name = "Cr";
+            this.Cr.Width = 42;
+            // 
+            // Tokens
+            // 
+            this.Tokens.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Tokens.HeaderText = "Tokens";
+            this.Tokens.MinimumWidth = 300;
+            this.Tokens.Name = "Tokens";
+            this.Tokens.Width = 300;
             // 
             // txtTotalCtc
             // 
@@ -266,6 +283,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtSizeScore;
         private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.TextBox txtTotalCtc;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtCp;
+        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridViewTextBoxColumn LineNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Statement;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cs;
@@ -275,10 +296,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TW;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cps;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cr;
-        private System.Windows.Forms.TextBox txtTotalCtc;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtCp;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tokens;
     }
 }
 

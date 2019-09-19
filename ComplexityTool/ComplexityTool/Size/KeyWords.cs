@@ -111,6 +111,7 @@ namespace ComplexityTool.Size
                     {
                         //Console.WriteLine(word);
                         keyScore = keyScore + 1;
+                        
                     }
 
                     if (variableList.Any(word.Contains))
@@ -246,7 +247,7 @@ namespace ComplexityTool.Size
                     {
                         method = word.Substring(0, word.IndexOf("(") + 1);
                         methodList.Add(method);
-                        Console.WriteLine(method);
+                        //Console.WriteLine(method);
                     }
 
                 }

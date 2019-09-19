@@ -124,7 +124,7 @@ namespace ComplexityTool.Recursion
                         //Console.WriteLine(tWord);
                         if (tWord.Contains(method))
                         {
-                            Console.WriteLine(word);
+                            //Console.WriteLine(word);
                             flag = true;
                             break;
                         }
