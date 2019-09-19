@@ -55,7 +55,7 @@ namespace ComplexityTool
            // string[] tokens;
 
             int scoreCs;
-            int keyCs;
+            //int keyCs;
             int scoreInherit;
             int scoreCnc = 0;
             int scoreCps = 0;
@@ -91,26 +91,7 @@ namespace ComplexityTool
                 {
                     continue;
                 }
-               
-
-                //string allTokens = "";
-
-                //string tLine = line.Trim();
-                //tLine = Regex.Replace(code, "\"[^\"]*\"", string.Empty);
-
-                //if (line.Contains("import") || line.Contains("package") || line.Contains("class"))
-                //{
-                //    tokens = null;
-                //}
-                //else
-                //{
-                //  tokens = tLine.Split(new[] { " ", ".", ",", "(", ")" }, StringSplitOptions.None);
-                //}
-                
-
-                
-
-
+   
                 //call method to calculate score
                 scoreCs = sComplex.operatorsScore(line);
                 //keyCs = keyComplex.KeyWordsScore(line);
@@ -127,23 +108,7 @@ namespace ComplexityTool
                 dataGridView.Rows[i].Cells[2].Value = scoreCs;
                 dataGridView.Rows[i].Cells[3].Value = scoreCTC;
 
-                //if(tokens != null) { 
-                //    foreach (String t in tokens)
-                //    {
-                //        string tToken = t.Trim();
-                //        tToken = tToken.Trim(new[] {'{', '}', ';' } );
-                //        if(String.IsNullOrWhiteSpace(tToken))
-                //        {
-                //            continue;
-                //        }else if (notConsidered.Any(tToken.Contains))
-                //        {
-                //            continue;
-                //        }
-                    
-                //        allTokens = allTokens + tToken + " , ";
-                //    }
-                //}
-
+            
                 if(allTokens != null)
                 {
                     foreach(string t in allTokens)
@@ -152,16 +117,23 @@ namespace ComplexityTool
                     }
                 }
 
-                dataGridView.Rows[i].Cells[9].Value = idenTokens.ToString();
+                idenTokens = idenTokens.Trim();
+                dataGridView.Rows[i].Cells[9].Value = idenTokens.Trim(',');
                 idenTokens = "";
                 allTokens.Clear();
 
 
+                //---Welarathne K.T--IT17186070
                 if (GlobalData.isExtendedRow)
                 {
 
                     dataGridView.Rows[i].Cells[5].Value = GlobalData.ExtendCount;
                     totalExtendCount = totalExtendCount + GlobalData.ExtendCount;
+
+                    if (Regex.IsMatch(line.ToString(), @"^(public class \w*)"))
+                    {
+                        dataGridView.Rows[i].Cells[5].Value = 0;
+                    }
                 }
                 else
                 {
@@ -171,16 +143,30 @@ namespace ComplexityTool
 
                 if (GlobalData.isInsideOfBrackets)
                 {
-                    dataGridView.Rows[i].Cells[5].Value = GlobalData.ExtendValueinsideBra;
-                    totalExtendCount = totalExtendCount + GlobalData.ExtendValueinsideBra;
-                    GlobalData.ExtendValueinsideBra = 0;
+                    if (Regex.IsMatch(line.ToString(), @"^(\s*try)|^(\s*else\s+\W)|^(\s*else)$|^(\s*else){$|^\s*}(\s*finally)|^}(\s*else\s+\W)|^\s*}(\s*else){$|^\s*}(\s*else)$|^(\s*else)\s*$|^(\s*{\s*)$|^(\s*}\s*)$|^(\s*class \w*)|^(public class \w*)"))
+                    {
+                        dataGridView.Rows[i].Cells[5].Value = 0;
+                        if (Regex.IsMatch(line.ToString(), @"^(\s*else{)"))
+                        {
+                            dataGridView.Rows[i].Cells[5].Value = 0;
+                        }
+
+                    }
+                    else
+                    {
+                        dataGridView.Rows[i].Cells[5].Value = GlobalData.ExtendValueinsideBra;
+                        totalExtendCount = totalExtendCount + GlobalData.ExtendValueinsideBra;
+                        GlobalData.ExtendValueinsideBra = 0;
+                    }
+
                     GlobalData.isInsideOfBrackets = false;
                     totalCr = totalCr + int.Parse(dataGridView.Rows[i].Cells[5].Value.ToString());
                 }
 
                 GlobalData.isExtendedRow = false;
                 GlobalData.ExtendCount = 0;
-       
+
+               
 
                 //calculate total score
                 totalCs = totalCs + scoreCs;
@@ -213,8 +199,8 @@ namespace ComplexityTool
 
  
             //display total score
-            txtSizeScore.Text = totalCs.ToString();
-            txtTotalCtc.Text = totalCTC.ToString();
+            //txtSizeScore.Text = totalCs.ToString();
+            //txtTotalCtc.Text = totalCTC.ToString();
 
             if (isRec == true)
             {

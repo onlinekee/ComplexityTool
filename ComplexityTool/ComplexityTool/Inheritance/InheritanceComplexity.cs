@@ -29,7 +29,60 @@ namespace ComplexityTool.Inheritance
             try
             {
                 isSameLine = true;
-                
+                //loop characters in the charArray
+                foreach (char ch in charArray)
+                {
+                    //check for "." and ","
+                    if (Regex.IsMatch(ch.ToString(), @"^[,.]"))
+                    {
+                        score = score + 1;
+                    }
+
+                }
+
+                //loop the word by word in the code
+                foreach (String word in words)
+                {
+                    //check for double quotes and skip
+                    if (Regex.Matches(word, "\"").Count == 2)
+                    {
+                        flag = 0;
+                        continue;
+                    }
+
+                    if (Regex.Matches(word, "\"").Count == 1) //check start of a double quote
+                    {
+                        flag = 1;
+
+                    }
+
+                    if ((flag == 1) && Regex.Matches(word, "\"").Count == 1) //check end of a double quote
+                    {
+                        flag = 0;
+                        continue;
+                    }
+                    else if (flag == 0) //executes following if word is not within double quotes
+                    {
+
+                        string[] singleOperators = new string[] { "+", "-", "*", "/", "%", ">", "<", "!", "|", "^", "~", "=" };
+
+                        string[] otherOperators = new string[] { "++", "--", "==", "<<", ">>", "!=", ">=", "<=", "&&", "||", "->", "::", "+=", "-=", "*=", "/=", ">>>=", "|=", "&=", "%=", "<<=", ">>=", "^=", ">>>", "<<<" };
+
+                        if (otherOperators.Any(word.Contains))
+                        {
+                            score = score + 1;
+                        }
+                        else if (singleOperators.Any(word.Contains))
+                        {
+                            score = score + 1;
+                        }
+
+                        if (word.Contains("//"))
+                        {
+                            score = score - 1;
+                        }
+                    }
+                }
 
                 foreach (string word in words)
                 {
@@ -57,9 +110,23 @@ namespace ComplexityTool.Inheritance
 
                             string temp = words[iteration + 1];          //store temp
 
-                            if (words[iteration + 2].Equals(":"))
+                            if ((words[iteration + 2].Equals(":")) || (words[iteration + 2].Equals("extends")))
                             {
-                                int rowEC = GlobalData.list.Find(x => x.ClassName.Equals(words[iteration + 3])).Value + 1;
+
+                                int rowEC = 0;
+                                try
+                                {
+                                    rowEC = GlobalData.list.Find(x => x.ClassName.Equals(words[iteration + 3])).Value + 1;
+                                }
+                                catch (Exception e)
+                                {
+
+                                    rowEC = 3;
+
+
+
+                                }
+
                                 extendCount = rowEC + extendCount;
 
                                 if (!GlobalData.list.Any(x => x.ClassName.ToLower().Equals(words[iteration + 1].ToLower())))
@@ -111,12 +178,8 @@ namespace ComplexityTool.Inheritance
                         GlobalData.isInsideOfBrackets = true;
                         isSameLine = false;
                     }
-                    //else
-                    //{
-                    //    GlobalData.ExtendValueinsideBra = 0;
-                    //    GlobalData.isInsideOfBrackets = false;
 
-                    //}
+
 
                     iteration++;
                 }
@@ -128,6 +191,7 @@ namespace ComplexityTool.Inheritance
             catch (Exception ex)
             {
                 //throw ex;
+                Console.WriteLine("-----exception------" + ex);
             }
 
             return score;
