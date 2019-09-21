@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ctc\CNCClass.cs" />
     <Compile Include="Ctc\CTCClass.cs" />
     <Compile Include="ExtendedProperties.cs" />
     <Compile Include="GlobalData.cs" />

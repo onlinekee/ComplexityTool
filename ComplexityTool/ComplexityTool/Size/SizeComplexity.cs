@@ -14,22 +14,16 @@ namespace ComplexityTool.Size
 
         public int operatorsScore(String code)
         {
-            int flag = 0;
-            int chflag = 0;
-            int score = 0;
-            string quotes = "";
-            int quoteCount = Regex.Matches(code, "\"[^\"]*\"").Count;
-
             
-
+            int score = 0;
+            
+            int quoteCount = Regex.Matches(code, "\"[^\"]*\"").Count;
+        
             score = score + quoteCount;
 
             //remove double quoted text from the code
             string str = Regex.Replace(code, "\"[^\"]*\"", string.Empty);
-           
-            //split code into words separated by spaces
-            //string[] words = str.Split(' ');
-
+                 
             str = str.Trim();
             string[] words = str.Split(new[] { " ", ";", ".", ",", "(", ")", "[", "]", "{", "}" }, StringSplitOptions.None);
 
@@ -45,8 +39,7 @@ namespace ComplexityTool.Size
             
                 try
                 {
-                    
-                   
+                                      
                     //loop the word by word in the code
                     foreach (String word in words)
                     {
@@ -63,13 +56,6 @@ namespace ComplexityTool.Size
                             string[] otherOperators = new string[] { "++", "--", "==", "<<", ">>", "!=", ">=", "<=", "&&", "||", "->", "::", "+=", "-=", "*=", "/=", ">>>=", "|=", "&=", "%=", "<<=", ">>=", "^=", ">>>", "<<<" };
 
                             string[] notConsidered = new string[] { "public", "static", "else", "try", "return" };
-
-
-                            if(tWord.Contains("<") && tWord.Contains(">"))
-                            {
-                                string[] tempArr = tWord.Split(new[] { "<", ">" }, StringSplitOptions.None);
-
-                            }
 
                             if (otherOperators.Any(tWord.Contains))
                             {
@@ -109,10 +95,6 @@ namespace ComplexityTool.Size
                                         }
                                     }
                                 }
-
-
-
-
 
                             }
                             else if (singleOperators.Any(tWord.Contains))
@@ -167,33 +149,28 @@ namespace ComplexityTool.Size
                             {
                                 Main.allTokens.Add(tWord.ToString());
                                 score = score + 2;
-                                //Console.WriteLine(tWord, score);
                             }
                             else if (isKeyword(tWord))
                             {
                                 Main.allTokens.Add(tWord.ToString());
                                 score = score + 1;
-                                //Console.WriteLine(tWord, score);
 
                             }
                             else if (isName(tWord) && !notConsidered.Any(tWord.Contains))
                             {
                                 Main.allTokens.Add(tWord.ToString());
                                 score = score + 1;
-                                //Console.WriteLine(tWord, score);
                             }                            
                             else if ((tWord.Length > 1) && (tWord.Substring(0, 1) == "&") && Regex.IsMatch(tWord.Substring(1, 1), @"^[a-zA-Z]+$"))
                             {
                                 Main.allTokens.Add(tWord.ToString());
                                 score = score + 2;
-                                //Console.WriteLine(tWord, score);
 
                             }
                             else if ((tWord.Length > 1) && (tWord.Substring(0, 1) == "*"))
                             {
                                 Main.allTokens.Add(tWord.ToString());
                                 score = score + 1;
-                                //Console.WriteLine(tWord, score);
 
                             }else if (isNumber(tWord))
                             {
@@ -206,11 +183,6 @@ namespace ComplexityTool.Size
                                 score = score - 1;
                             }
 
-                            //if(quoteCount > 0)
-                            //{
-                            //    Main.allTokens.Add(quotes);
-                            //    quotes = "";
-                            //}
                         }                       
                        
                     }
@@ -289,13 +261,10 @@ namespace ComplexityTool.Size
                     {
                         method = word.Substring(0, word.IndexOf("(") + 1);
                         methodList.Add(method);
-                        //Console.WriteLine(method);
                     }
 
                 }
             }
-
-
         }
 
         public Boolean isName(String word)
