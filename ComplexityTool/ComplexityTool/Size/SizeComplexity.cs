@@ -245,27 +245,6 @@ namespace ComplexityTool.Size
 
         }
 
-        public void findMethods(String line)
-        {
-            String str = line;
-            String method = null;
-            String[] words = str.Split(' ');
-
-            string[] methodTypes = new string[] { "public", "private", "void" };
-
-            if (methodTypes.Any(line.Contains))
-            {
-                foreach (String word in words)
-                {
-                    if (word.Contains("("))
-                    {
-                        method = word.Substring(0, word.IndexOf("(") + 1);
-                        methodList.Add(method);
-                    }
-
-                }
-            }
-        }
 
         public Boolean isName(String word)
         {

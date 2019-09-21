@@ -24,7 +24,6 @@ namespace ComplexityTool
 
         SizeComplexity sComplex = new SizeComplexity();
         InheritanceComplexity inComplex = new InheritanceComplexity();
-        //RecursionComplexity rComplex = new RecursionComplexity();
         RecursionComplexity recursion = new RecursionComplexity();
         TotalComplexity.TotalComplexity tComplex = new TotalComplexity.TotalComplexity();
         CTCClass ctcComplex = new CTCClass();
@@ -46,16 +45,12 @@ namespace ComplexityTool
             String code = txtCode.Text.ToString();
 
             int scoreCs;
-            //int keyCs;
             int scoreInherit;
-            int scoreCnc = 0;
             int scoreCps = 0;
             int scoreCr = 0;
             int totalCs = 0;
             int scoreCTC = 0;
             int totalCTC = 0;
-            int scoreCNC = 0;
-            int totalCNC = 0;
             int totalCps = 0;
             int totalCr = 0;
             int redCps = 0;
@@ -78,8 +73,6 @@ namespace ComplexityTool
 
             //call method to calculate CNC score
             cncComplex.camputeCNCScoreForCode(code);
-
-        
 
             //separate code into lines
             string[] lines = code.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
@@ -160,7 +153,7 @@ namespace ComplexityTool
                     }
 
                     GlobalData.isInsideOfBrackets = false;
-                    //totalCr = totalCr + int.Parse(dataGridView.Rows[i].Cells[5].Value.ToString());
+
                 }
 
                 GlobalData.isExtendedRow = false;
@@ -324,14 +317,12 @@ namespace ComplexityTool
                         continue;
                     }
 
-                    //if (dataGridView.Rows[l].Cells[10].Value.ToString().Equals(name))
                     if (methodArrayName[l].Equals(name))
                     {
 
 
-                        if (line.Contains(";") || line.Contains("{"))
+                        if (line.Contains(";") || line.Contains("{") || line.Contains("("))
                         {
-
                             scoreCps = int.Parse(dataGridView.Rows[l].Cells[7].Value.ToString());
                             scoreCr = scoreCps * 2;
                             totalCr = totalCr + scoreCr;
@@ -345,8 +336,6 @@ namespace ComplexityTool
 
             }
 
-
-
             //Display total Cp
             if (isRec == true)
             {
@@ -356,8 +345,6 @@ namespace ComplexityTool
             {
                 txtCp.Text = totalCps.ToString();
             }
-
-
 
         }
 
@@ -422,6 +409,21 @@ namespace ComplexityTool
             return methodsArray;
         }
 
+        private void buttonOpenFile_Click(object sender, EventArgs e)
+        {
+            Stream myStream;
 
+            OpenFileDialog openFile = new OpenFileDialog();
+
+            if(openFile.ShowDialog() == DialogResult.OK)
+            {
+                if((myStream = openFile.OpenFile()) != null){
+                    string strFileName = openFile.FileName;
+                    string fileText = File.ReadAllText(strFileName);
+                    txtCode.Text = fileText;
+                }
+
+            }
+        }
     }
 }
